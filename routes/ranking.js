@@ -2,10 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
 
-// GET /ranking?categoria=Robotica
-// Calcula, para cada proyecto, el promedio ponderado por peso de cada
-// criterio, primero por juez y luego promediando entre todos los jueces
-// que hayan calificado. Los proyectos sin calificaciones no aparecen.
+
 router.get("/", async (req, res) => {
     try {
         const { categoria } = req.query;
@@ -40,7 +37,7 @@ router.get("/", async (req, res) => {
 
         const resultado = await db.query(consulta, parametros);
 
-        // Se agrega la posicion en el ranking (1ro, 2do, 3ro, ...)
+     
         const conPosicion = resultado.rows.map((fila, indice) => ({
             posicion: indice + 1,
             ...fila
