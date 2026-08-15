@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
 
-// GET /calificacion/criterios -> lista de criterios de la rubrica
+
 router.get("/criterios", async (req, res) => {
     try {
         const resultado = await db.query("SELECT * FROM criterio ORDER BY id_criterio");
@@ -13,7 +13,7 @@ router.get("/criterios", async (req, res) => {
     }
 });
 
-// GET /calificacion/jueces -> lista de jueces
+
 router.get("/jueces", async (req, res) => {
     try {
         const resultado = await db.query("SELECT * FROM juez ORDER BY nombre");
@@ -24,7 +24,7 @@ router.get("/jueces", async (req, res) => {
     }
 });
 
-// POST /calificacion/jueces -> crear un juez (util para pruebas / login simple)
+
 router.post("/jueces", async (req, res) => {
     try {
         const { nombre } = req.body;
@@ -42,7 +42,7 @@ router.post("/jueces", async (req, res) => {
     }
 });
 
-// GET /calificacion/:id_proyecto -> calificaciones registradas de un proyecto
+
 router.get("/:id_proyecto", async (req, res) => {
     try {
         const { id_proyecto } = req.params;
@@ -64,16 +64,7 @@ router.get("/:id_proyecto", async (req, res) => {
     }
 });
 
-// POST /calificacion -> registrar la rubrica completa que un juez llena para un proyecto
-// body esperado:
-// {
-//   "id_proyecto": 1,
-//   "id_juez": 1,
-//   "calificaciones": [
-//     { "id_criterio": 1, "puntaje": 8.5 },
-//     { "id_criterio": 2, "puntaje": 9 }
-//   ]
-// }
+
 router.post("/", async (req, res) => {
     const { id_proyecto, id_juez, calificaciones } = req.body;
 
@@ -95,7 +86,7 @@ router.post("/", async (req, res) => {
                 throw new Error("Cada calificacion necesita id_criterio y puntaje");
             }
 
-            // ON CONFLICT: si el juez ya califico ese criterio para ese proyecto, se actualiza
+     
             const resultado = await cliente.query(
                 `INSERT INTO calificacion (id_proyecto, id_criterio, id_juez, puntaje)
                  VALUES ($1, $2, $3, $4)
