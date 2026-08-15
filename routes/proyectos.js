@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
 
-// GET /proyectos  -> lista todos los proyectos (opcional ?categoria=)
+
 router.get("/", async (req, res) => {
     try {
         const { categoria } = req.query;
@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-// GET /proyectos/:id -> detalle de un proyecto
+
 router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
@@ -44,7 +44,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-// POST /proyectos -> crear un proyecto nuevo
+
 router.post("/", async (req, res) => {
     try {
         const { titulo, categoria } = req.body;
@@ -65,7 +65,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-// GET /proyectos/:id/rubrica -> proyecto + lista de criterios para que el juez califique
+
 router.get("/:id/rubrica", async (req, res) => {
     try {
         const { id } = req.params;
